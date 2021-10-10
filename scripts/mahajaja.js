@@ -1,4 +1,4 @@
-const dataURL = "../JSONdata/A2-JSON.json"
+const dataURL = "/JSONdata/A2-JSON.json"
 const categoriesArray = new Array();
 const animalsArray = new Array();
 
@@ -20,6 +20,11 @@ $(function() {
         }
     }); //end load
     LoadBodyData();
+
+    $("li").click(function(event){
+        localStorage.setItem("clickId",event.currentTarget.id);
+        console.log(event.currentTarget.id);
+    });
 
 });
 
@@ -96,12 +101,11 @@ const  LoadFooter = () => {
 
 const LoadBodyData = ()=>{
     const data = JSON.parse(localStorage.getItem('Category'));
-    console.log(data);
-    for (let i=0; i<data.length; i++) {
+    for (let i=0; i < data.length; i++) {
         $("#catList").append(
             `
                 <li id=${i}>
-                    ${data[i].cattype}
+                    <a href="/pages/page2.html"> ${data[i].cattype}</a> 
                 </li>
             `
         );
