@@ -1,6 +1,6 @@
 const dataURL = "../JSONdata/A2-JSON.json"
-const categoriesyArray = [];
-const animalsArray = [];
+const categoriesArray = new Array();
+const animalsArray = new Array();
 
 $(function() {
     //call to ajax
@@ -18,7 +18,9 @@ $(function() {
                 LoadFooter();
             });
         }
-    });
+    }); //end load
+    LoadBodyData();
+
 });
 
 const setPersonalData = (data)=>{
@@ -34,9 +36,9 @@ const setPersonalData = (data)=>{
 const setCategories = (data) => {
     const { Categories } =  data;
     for(let i=0; i<Categories.length; i++) {
-        categoriesyArray.push(new Category(Categories[i].cattype,Categories[i].logo));
+        categoriesArray.push(new Category(Categories[i].cattype,Categories[i].logo));
     }
-    localStorage.setItem("Category",JSON.stringify(categoriesyArray));
+    localStorage.setItem("Category",JSON.stringify(categoriesArray));
 };
 
 const setAnimals = (data) => {
@@ -49,8 +51,8 @@ const setAnimals = (data) => {
 
 
 class Category{
-    constructor(catType,logo){
-        this.catType = catType;
+    constructor(cattype,logo){
+        this.cattype = cattype;
         this.logo = logo;
     }
 };
@@ -68,11 +70,11 @@ class AnimalDetail{
 const  LoadHeader = () => {
     $("#main").html(
         `
-            <h5>Assignment-2</h5>
-            <h5>Name: ${localStorage.getItem('FirstName')} ${localStorage.getItem('LastName')} </h5>
-            <h5>StudentID: ${localStorage.getItem('StudentID')}</h5>
-            <h5>Program: ${localStorage.getItem('Program')}</h5>
-            <h5>StudentID: ${localStorage.getItem('UserName')}</h5>
+            <h3>Assignment-2</h3>
+            <h3>Name: ${localStorage.getItem('FirstName')} ${localStorage.getItem('LastName')} </h3>
+            <h3>StudentID: ${localStorage.getItem('StudentID')}</h3>
+            <h3>Program: ${localStorage.getItem('Program')}</h3>
+            <h3>StudentID: ${localStorage.getItem('UserName')}</h3>
         `
     );
     $("#main").addClass("textCenter");
@@ -90,3 +92,18 @@ const  LoadFooter = () => {
     );
     $("#footer").addClass("textCenter");
 }
+
+
+const LoadBodyData = ()=>{
+    const data = JSON.parse(localStorage.getItem('Category'));
+    console.log(data);
+    for (let i=0; i<data.length; i++) {
+        $("#catList").append(
+            `
+                <li id=${i}>
+                    ${data[i].cattype}
+                </li>
+            `
+        );
+    }
+};
