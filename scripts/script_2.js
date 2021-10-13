@@ -55,7 +55,8 @@ const LoadBodyData = ()=>{
         if(animals[i].category === catType){
             $("#animalList").append(
                 `
-                <li>${animals[i].animal}</li>
+                <li>The <b><i> ${animals[i].animal} </i></b> with scientific name of <b><i>${animals[i].scientific}</i></b> has a basic color range of <b><i>${animals[i].colors}</i></b></li>
+                <img src="${animals[i].photoDepiction}">
                 `
             );
         }
